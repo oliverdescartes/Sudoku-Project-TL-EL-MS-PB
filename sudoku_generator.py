@@ -109,7 +109,21 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def is_valid(self, row, col, num):
-        pass
+        if num in self.board[row]:
+            return False
+        
+        for i in range(self.row_length):
+            if self.board[i][col] == num:
+                return False
+        
+        row_start = (row // self.box_length) * self.box_length
+        col_start = (col // self.box_length) * self.box_length
+        for i in range(row_start, row_start + self.box_length):
+            for j in range(col_start, col_start + self.box_length):
+                if self.board[i][j] == num:
+                    return False
+        
+        return True
 
     '''
     Fills the specified 3x3 box with values
