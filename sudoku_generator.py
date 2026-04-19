@@ -75,8 +75,20 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_col(self, col, num):
-        for i in self.board[col]:
-            if i[col] == num:
+        for i in range(self.row_length):
+            '''
+            checking like in the below pattern:
+
+            0,1
+            1,1
+            2,1
+            .
+            .
+
+            8,1
+            '''
+            val=self.board[i][col]
+            if val == num:
                 return False
         return True
 
@@ -221,7 +233,17 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        pass
+        cell_rem=self.removed_cells
+        i=0
+        while i<cell_rem:
+            row=random.randint(0,self.row_length-1)
+            col=random.randint(0,self.row_length-1)
+            # check whether the position already filled with zero.
+            if self.board[row][col] !=0:
+                self.board[row][col]=0 
+                i+=1
+
+        
 
 '''
 DO NOT CHANGE
@@ -245,3 +267,4 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
